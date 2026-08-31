@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "allowJs": true,
+    "paths": {
+      "@sap/cds": ["./node_modules/@cap-js/cds-types"],
+      "#cds-models/*": ["./@cds-models/*"]
+    },
+    "rootDir": ".",
+    "outDir": "dist",
+    "typeRoots": [
+      "./node_modules/@types",
+      "./node_modules/@sapui5/types",
+      "../../node_modules/@types",
+      "../../node_modules/@sapui5/types"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "**/*.test.ts",
+    "@cds-models" // <-- ADD THIS LINE
+  ]
+}

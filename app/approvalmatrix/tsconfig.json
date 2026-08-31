@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "es2022",
+    "skipLibCheck": true,
+    "allowJs": true,
+    "strict": false,
+    "strictPropertyInitialization": false,
+    "noImplicitAny": false,
+    "moduleResolution": "node",
+    "rootDir": "./webapp",
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "paths": {
+      "nai/approvalmatrix/app/approvalmatrix/*": ["./webapp/*"]
+    },
+    "typeRoots": ["../../node_modules/@sapui5/types"]
+  },
+  "include": ["./webapp/**/*"]
+}

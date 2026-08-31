@@ -1,0 +1,5 @@
+ID,code,description,createdAt,createdBy,modifiedAt,modifiedBy
+43296a1d-a320-42ac-b6b3-97938fe6c09f,CA,"Cash Advance",2026-06-15T14:04:36.653Z,test,2026-06-15T14:04:36.653Z,test
+43296a1d-a320-42ac-b6b3-97938fe6c09a,RE,Reimbursement,2026-06-15T14:04:36.653Z,test,2026-06-15T14:04:36.653Z,test
+43296a1d-a320-42ac-b6b3-97938fe6c09b,RP,Replenishment,2026-06-15T14:04:36.653Z,test,2026-06-15T14:04:36.653Z,test
+43296a1d-a320-42ac-b6b3-97938fe6c09c,LQ,Liquidation,2026-06-15T14:04:36.653Z,test,2026-06-15T14:04:36.653Z,test

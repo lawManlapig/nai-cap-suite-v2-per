@@ -1,0 +1,32 @@
+{
+  "generationParameters": {
+    "generationDate": "Mon Jun 15 2026 08:04:20 GMT+0000 (Coordinated Universal Time)",
+    "generatorPlatform": "SAP Business Application Studio",
+    "serviceType": "Local CAP",
+    "metadataFilename": "",
+    "serviceUrl": "http://localhost:4004/odata/v4/reimbursement-types/",
+    "appName": "rtmaintenance",
+    "appTitle": "Configure Request Types",
+    "appDescription": "Data maintenance application",
+    "appNamespace": "nai.reimbursements.app",
+    "ui5Theme": "sap_horizon",
+    "ui5Version": "1.149.0",
+    "enableEslint": true,
+    "enableTypeScript": true,
+    "showMockDataInfo": false,
+    "generatorVersion": "1.26.0",
+    "template": "List Report Page V4",
+    "generatorName": "SAP Fiori Application Generator",
+    "entityRelatedConfig": [
+      {
+        "type": "Main Entity",
+        "value": "RequestTypesSet"
+      },
+      {
+        "type": "Navigation Entity",
+        "value": "subTypes"
+      }
+    ],
+    "launchText": "To launch the generated app, start your CAP project:  and navigate to the following location in your browser:\n\nhttp://localhost:4004/nai.reimbursements.app.rtmaintenance/index.html"
+  }
+}

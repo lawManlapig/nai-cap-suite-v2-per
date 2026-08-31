@@ -1,0 +1,809 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Identity Authentication API",
+    "description": "This API will be officially decommissioned on `2026-11-30`. Successor API is  [Identity Directory Service](https://api.sap.com/api/IdDS_SCIM/overview). \n Identity Authentication service provides you with simple and secure cloud-based access to business processes, applications, and data. It simplifies your user experience through state-of-the-art authentication mechanisms, secure single sign-on, on-premise integration, and convenient self-service options. Identity Authentication provides implementation for the System for Cross-domain Identity Management (SCIM) standard."
+  },
+  "x-sap-stateInfo": {
+    "state": "Deprecated",
+    "deprecationDate": "2023-05-25",
+    "successorApi": "https://api.sap.com/api/IdDS_SCIM/overview"
+  },
+  "x-sap-shortText": "This is the old SCIM REST API and it is not recommended to be used. Please use Identity Directory SCIM REST API instead.",
+  "host": "hostname",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "BasicAuth": {
+      "type": "basic",
+      "description": "To call the methods of this SCIM REST API, you need to provide client credentials. "
+    }
+  },
+  "security": [
+    {
+      "BasicAuth": []
+    }
+  ],
+  
+  "externalDocs": {
+    "description": "Identity Authentication overview page on SAP Help Portal",
+    "url": "https://help.sap.com/viewer/6d6d63354d1242d185ab4830fc04feb1/Cloud"
+  },
+  "x-servers": [
+    {
+      "url": "https://{tenant}.{host}/service",
+      "description": "IAS API endpoint",
+      "templates": {
+        "tenant": {
+          "description": "SAP Cloud Identity tenant"
+        },
+        "host": {
+          "description": "SAP Cloud Identity Services host",
+          "default": "accounts.ondemand.com"
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/scim/Users": {
+      "post": {
+        "description": "The create user resource method of the Identity Authentication implementation of the SCIM REST API protocol provides information on the creation of a user.\n",
+        "tags": [
+          "User"
+        ],
+        "summary": "Creates a user resource.",
+        "consumes": [
+          "application/scim+json"
+        ],
+        "produces": [
+          "application/scim+json"
+        ],
+        "parameters": [
+          {
+            "name": "userData",
+            "in": "body",
+            "required": true,
+            "description": "Details of the user to be created",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/ScimUser"
+                }
+              ],
+              "example": {
+                "emails": [
+                  {
+                    "primary": true,
+                    "value": "username.example@sap.com"
+                  }
+                ],
+                "name": {
+                  "familyName": "Example",
+                  "givenName": "Username"
+                },
+                "schemas": [
+                  "urn:ietf:params:scim:schemas:core:2.0:User"
+                ],
+                "userName": "username"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Indicates success.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/scimUserResponse"
+              }
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "#/definitions/scimErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/scim/Users/{UserId}": {
+      "get": {
+        "description": "The user resource method of the Identity Authentication implementation of the SCIM REST API protocol provides information on a known user.\n",
+        "tags": [
+          "User"
+        ],
+        "summary": "Retrieves a specific user.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/UserIdParameter"
+          }
+        ],
+        "produces": [
+          "application/scim+json"
+        ],
+        "responses": {
+          "200": {
+            "description": "List details for a specific user in a tenant of Identity Authentication.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/scimUserResponse"
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": "#/definitions/scimErrorResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "The update user method of the implementation of the SCIM REST API protocol provides information on the update of a known user. The method does not create a new user.\n",
+        "tags": [
+          "User"
+        ],
+        "summary": "Updates all attributes of a user.",
+        "consumes": [
+          "application/scim+json"
+        ],
+        "produces": [
+          "application/scim+json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/UserIdParameter"
+          },
+          {
+            "name": "userData",
+            "in": "body",
+            "required": true,
+            "description": "Details of the user to be created",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/ScimUser"
+                }
+              ],
+              "example": {
+                "emails": [
+                  {
+                    "primary": true,
+                    "value": "username.example@sap.com"
+                  }
+                ],
+                "name": {
+                  "familyName": "Example",
+                  "givenName": "Username"
+                },
+                "schemas": [
+                  "urn:ietf:params:scim:schemas:core:2.0:User"
+                ],
+                "userName": "username"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operation successful.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/scimUserResponse"
+              }
+            }
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": "#/definitions/scimErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "The delete user resource method of the Identity Authentication implementation of the SCIM REST API protocol allows you to delete an existing user. Delete user resource is implemented as defined by the System for Cross-domain Identity Management (SCIM) protocol.\n",
+        "tags": [
+          "User"
+        ],
+        "summary": "Deletes a specific user.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/UserIdParameter"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "User is successfully deleted."
+          },
+          "500": {
+            "description": "Server error",
+            "schema": {
+              "$ref": "#/definitions/scimErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/scim/Groups": {
+      "post": {
+        "description": "The create group resource method of the Identity Authentication implementation of the SCIM REST API protocol provides information on the creation of a user group.\n",
+        "tags": [
+          "Group"
+        ],
+        "summary": "Creates a group resource.",
+        "consumes": [
+          "application/scim+json"
+        ],
+        "produces": [
+          "application/scim+json"
+        ],
+        "parameters": [
+          {
+            "name": "groupData",
+            "in": "body",
+            "required": true,
+            "description": "Details of the group to be created",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Group"
+                }
+              ],
+              "example": {
+                "displayName": "Administrators",
+                "members": [
+                  {
+                    "type": "User",
+                    "value": "P0000001"
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Indicates success.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/scimGroupResponse"
+              }
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "#/definitions/scimErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/scim/Groups/{GroupId}": {
+      "get": {
+        "description": "The group resource method of the Identity Authentication implementation of the SCIM REST API protocol provides information on a known group.\n",
+        "tags": [
+          "Group"
+        ],
+        "summary": "Retrieves a specific group.",
+        "produces": [
+          "application/scim+json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/GroupIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List details for a specific group in a tenant of Identity Authentication.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/scimGroupResponse"
+              }
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "#/definitions/scimErrorResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "The update group method of the Identity Authentication implementation of the SCIM REST API protocol provides information on the update of an existing group. The method does not create a new group.\n",
+        "tags": [
+          "Group"
+        ],
+        "summary": "Updates all attributes of a group.",
+        "consumes": [
+          "application/scim+json"
+        ],
+        "produces": [
+          "application/scim+json"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/parameters/GroupIdParameter"
+          },
+          {
+            "name": "groupData",
+            "in": "body",
+            "required": true,
+            "description": "Details of the group to be created",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Group"
+                }
+              ],
+              "example": {
+                "displayName": "Administrators",
+                "members": [
+                  {
+                    "type": "User",
+                    "value": "P0000001"
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operation successful.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/scimGroupResponse"
+              }
+            }
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "#/definitions/scimErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "The delete group resource method of the Identity Authentication implementation of the SCIM REST API protocol allows you to delete an existing group. Delete group resource is implemented as defined by the System for Cross-domain Identity Management (SCIM) protocol.\n",
+        "tags": [
+          "Group"
+        ],
+        "summary": "Deletes a specific group.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/GroupIdParameter"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Group is successfully deleted."
+          },
+          "500": {
+            "description": "Server error.",
+            "schema": {
+              "$ref": "#/definitions/scimErrorResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "parameters": {
+    "limitParam": {
+      "name": "limit",
+      "in": "query",
+      "description": "Limits the number of returned results",
+      "required": false,
+      "type": "number",
+      "format": "int32"
+    },
+    "offsetParam": {
+      "name": "offset",
+      "in": "query",
+      "description": "Offset to the no of parameters to skip",
+      "required": false,
+      "type": "number",
+      "format": "int32"
+    },
+    "UserIdParameter": {
+      "name": "UserId",
+      "in": "path",
+      "description": "The id of the user being manipulated",
+      "required": true,
+      "type": "string"
+    },
+    "GroupIdParameter": {
+      "name": "GroupId",
+      "in": "path",
+      "description": "The id of the group being manipulated",
+      "required": true,
+      "type": "string"
+    }
+  },
+  "definitions": {
+    "Address": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "country": {
+          "type": "string"
+        },
+        "locality": {
+          "type": "string"
+        },
+        "postalCode": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "streetAddress": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "work"
+          ]
+        }
+      }
+    },
+    "Email": {
+      "type": "object",
+      "required": [
+        "type",
+        "value"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "work"
+          ]
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "EnterpriseUser": {
+      "type": "object",
+      "properties": {
+        "department": {
+          "type": "string"
+        }
+      }
+    },
+    "Meta": {
+      "type": "object",
+      "properties": {
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastModified": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "location": {
+          "type": "string",
+          "description": "resource location URI"
+        },
+        "resourceType": {
+          "type": "string",
+          "enum": [
+            "User",
+            "Group"
+          ]
+        }
+      },
+      "description": "resource metadata"
+    },
+    "Name": {
+      "type": "object",
+      "required": [
+        "familyName",
+        "givenName"
+      ],
+      "properties": {
+        "familyName": {
+          "type": "string"
+        },
+        "givenName": {
+          "type": "string"
+        }
+      }
+    },
+    "PatchOperation": {
+      "type": "object",
+      "required": [
+        "op"
+      ],
+      "properties": {
+        "op": {
+          "type": "string",
+          "enum": [
+            "add",
+            "replace",
+            "remove"
+          ]
+        },
+        "path": {
+          "type": "string"
+        },
+        "value": {
+          "type": "object",
+          "description": "corresponding 'value' of that field specified by 'path'"
+        }
+      }
+    },
+    "PhoneNumber": {
+      "type": "object",
+      "required": [
+        "type",
+        "value"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "work",
+            "mobile",
+            "other"
+          ]
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "Photo": {
+      "type": "object",
+      "required": [
+        "type",
+        "value"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "photo"
+          ]
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
+    "ScimUser": {
+      "type": "object",
+      "required": [
+        "emails",
+        "name",
+        "schemas",
+        "userName"
+      ],
+      "properties": {
+        "active": {
+          "type": "boolean",
+          "description": "user status",
+          "default": false
+        },
+        "addresses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Address"
+          }
+        },
+        "emails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Email"
+          }
+        },
+        "externalId": {
+          "type": "string",
+          "description": "external unique resource id defined by provisioning client"
+        },
+        "id": {
+          "type": "string",
+          "description": "unique resource id defined by RingCentral"
+        },
+        "name": {
+          "$ref": "#/definitions/Name"
+        },
+        "phoneNumbers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PhoneNumber"
+          }
+        },
+        "photos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Photo"
+          }
+        },
+        "schemas": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "urn:ietf:params:scim:schemas:core:2.0:User"
+            ]
+          }
+        },
+        "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User": {
+          "$ref": "#/definitions/EnterpriseUser"
+        },
+        "userName": {
+          "type": "string",
+          "description": "MUST be same as work type email address"
+        }
+      }
+    },
+    "scimUserResponse": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ScimUser"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "meta": {
+              "$ref": "#/definitions/Meta"
+            }
+          }
+        }
+      ]
+    },
+    "Group": {
+      "description": "Describes a group belonging to an organization",
+      "properties": {
+        "displayName": {
+          "description": "The group's display name",
+          "type": "string"
+        },
+        "id": {
+          "description": "The group's unique key",
+          "type": "string"
+        },
+        "members": {
+          "description": "An array of members",
+          "items": {
+            "$ref": "#/definitions/Member"
+          },
+          "type": "array"
+        },
+        "meta": {
+          "$ref": "#/definitions/GroupMetadata",
+          "description": "Group metadata"
+        }
+      },
+      "required": [
+        "meta",
+        "id",
+        "displayName"
+      ]
+    },
+    "GroupDefinition": {
+      "description": "Describes the group to create",
+      "properties": {
+        "displayName": {
+          "description": "The group's display name",
+          "type": "string"
+        },
+        "members": {
+          "description": "An array of members",
+          "items": {
+            "$ref": "#/definitions/Member"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "displayName"
+      ]
+    },
+    "GroupMetadata": {
+      "description": "Group metadata",
+      "properties": {
+        "created": {
+          "description": "The date and time the group was created",
+          "format": "date-time",
+          "type": "string"
+        },
+        "location": {
+          "description": "The URL where the group can be accessed",
+          "type": "string"
+        }
+      },
+      "required": [
+        "created",
+        "location"
+      ]
+    },
+    "Member": {
+      "description": "A member of a group. This can be a group or an user",
+      "properties": {
+        "type": {
+          "description": "The type of member",
+          "enum": [
+            "group",
+            "user"
+          ],
+          "type": "string"
+        },
+        "value": {
+          "description": "Depending on the member type this is a groupKey or an userKey",
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "value"
+      ]
+    },
+    "scimGroupResponse": {
+      "description": "Class describing a collection of groups",
+      "required": [
+        "resources",
+        "totalResults"
+      ],
+      "type": "object",
+      "properties": {
+        "resources": {
+          "description": "An array of groups",
+          "items": {
+            "$ref": "#/definitions/Group"
+          },
+          "type": "array"
+        },
+        "totalResults": {
+          "description": "The number of groups in the collection",
+          "format": "int64",
+          "type": "integer"
+        }
+      }
+    },
+    "scimErrorResponse": {
+      "type": "object",
+      "properties": {
+        "detail": {
+          "type": "string",
+          "description": "detail error message"
+        },
+        "schemas": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "urn:ietf:params:scim:api:messages:2.0:Error"
+            ]
+          }
+        },
+        "status": {
+          "type": "integer",
+          "description": "Error Code",
+          "format": "int32"
+        }
+      }
+    }
+  }
+}

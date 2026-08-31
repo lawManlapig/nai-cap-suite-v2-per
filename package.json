@@ -1,0 +1,45 @@
+{
+  "name": "nai-cap-suite-v2",
+  "version": "1.0.0",
+  "description": "A simple CAP project.",
+  "dependencies": {
+    "@cap-js/postgres": "^2",
+    "@sap-cloud-sdk/connectivity": "^4",
+    "@sap-cloud-sdk/http-client": "^4",
+    "@sap-cloud-sdk/resilience": "^4",
+    "@sap/cds": "^9",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/cds-typer": ">=0.1",
+    "@cap-js/cds-types": "^0.15.0",
+    "@cap-js/sqlite": "^2",
+    "@sap/cds-dk": "^9",
+    "@types/node": "^22.0.0",
+    "cds-plugin-ui5": "^0.13.0",
+    "mbt": "^1.2.29",
+    "rimraf": "^5.0.5",
+    "tsx": "^4",
+    "typescript": "^5",
+    "@sap/dev-cap-tools": "^1.31.0"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch-approvalmatrix": "cds watch --open nai.approvalmatrix.app.approvalmatrix/index.html?sap-ui-xx-viewCache=false --livereload false",
+    "undeploy": "cf undeploy nai-cap-suite-v2 --delete-services --delete-service-keys --delete-service-brokers",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive",
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1",
+    "watch-reimbursements": "cds watch --open nai.reimbursements.app.reimbursements/index.html?sap-ui-xx-viewCache=false --livereload false"
+  },
+  "private": true,
+  "imports": {
+    "#cds-models/*": "./@cds-models/*/index.js"
+  },
+  "workspaces": [
+    "app/*"
+  ],
+  "sapux": [
+    "app/approvalmatrix",
+    "app/reimbursements"
+  ]
+}

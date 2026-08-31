@@ -1,0 +1,17 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+	<SelectDialog
+		id="SCIMUsersVHDialog"
+		title="SCIM Users"
+		items="{vh>/SCIMUsersVH}"
+		search="handler.onValueHelpSearch"
+        core:require="{ handler: 'nai/approvalmatrix/app/approvalmatrix/ext/controller/ActionHandler'}"
+		confirm="handler.onValueHelpConfirm"
+		cancel="handler.onValueHelpConfirm">
+		<StandardListItem
+			iconDensityAware="false"
+			iconInset="false"
+			title="{vh>userName}"
+			description="{vh>displayName}"
+			 />
+	</SelectDialog>
+</core:FragmentDefinition>

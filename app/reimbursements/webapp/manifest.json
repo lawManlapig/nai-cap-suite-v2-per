@@ -1,0 +1,213 @@
+{
+  "_version": "1.84.0",
+  "sap.app": {
+    "id": "nai.reimbursements.app.reimbursements",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.24.0",
+      "toolsId": "d22565a3-a2c7-4fdb-b6de-4b189d08b4b2"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/cap-suite/reimbursements/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.01"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "capSuiteSemanticObject-manage": {
+          "semanticObject": "capSuiteSemanticObject",
+          "action": "manage",
+          "title": "{{capSuiteSemanticObject-manage.flpTitle}}",
+          "subTitle": "{{capSuiteSemanticObject-manage.flpSubtitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.148.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "nai.reimbursements.app.reimbursements.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "ExpenseRequestsList",
+          "target": "ExpenseRequestsList"
+        },
+        {
+          "pattern": "ExpenseRequests({key}):?query:",
+          "name": "ExpenseRequestsObjectPage",
+          "target": "ExpenseRequestsObjectPage"
+        },
+        {
+          "pattern": "ExpenseRequests({key})/expenseList({key2}):?query:",
+          "name": "ExpenseListObjectPage",
+          "target": "ExpenseListObjectPage"
+        }
+      ],
+      "targets": {
+        "ExpenseRequestsList": {
+          "type": "Component",
+          "id": "ExpenseRequestsList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/ExpenseRequests",
+              "variantManagement": "Page",
+              "navigation": {
+                "ExpenseRequests": {
+                  "detail": {
+                    "route": "ExpenseRequestsObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable"
+                  },
+                  "actions": {
+                    "submitEntries": {
+                      "press": "nai.reimbursements.app.reimbursements.ext.controller.CustomActions.submitEntries",
+                      "visible": true,
+                      "enabled": true,
+                      "requiresSelection": true,
+                      "text": "Submit"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ExpenseRequestsObjectPage": {
+          "type": "Component",
+          "id": "ExpenseRequestsObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/ExpenseRequests",
+              "navigation": {
+                "expenseList": {
+                  "detail": {
+                    "route": "ExpenseListObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "expenseList/@com.sap.vocabularies.UI.v1.LineItem#ExpenseList": {
+                  "tableSettings": {
+                    "personalization": {
+                      "column": false
+                    }
+                  }
+                }
+              },
+              "content": {
+                "footer": {
+                  "actions": {
+                    "submitEntries": {
+                      "press": "nai.reimbursements.app.reimbursements.ext.controller.CustomActions.submitEntries",
+                      "visible": true,
+                      "enabled": "{= !${ui>/isEditable}}",
+                      "text": "Submit"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ExpenseListObjectPage": {
+          "type": "Component",
+          "id": "ExpenseListObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/ExpenseRequests/expenseList"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.fe": {
+    "app": {
+      "enableLazyLoading": true
+    }
+  }
+}

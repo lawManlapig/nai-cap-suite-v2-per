@@ -1,0 +1,160 @@
+{
+  "_version": "1.85.0",
+  "sap.app": {
+    "id": "nai.reimbursements.app.rtmaintenance",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.26.0",
+      "toolsId": "3a567a81-d216-49d4-8d04-4b737013e055"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/reimbursement-types/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "capSuiteSemanticObject-manageRequestTypes": {
+          "semanticObject": "capSuiteSemanticObject",
+          "action": "manageRequestTypes",
+          "title": "{{capSuiteSemanticObject-manageRequestTypes.flpTitle}}",
+          "subTitle": "{{capSuiteSemanticObject-manageRequestTypes.flpSubtitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.149.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "nai.reimbursements.app.rtmaintenance.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "RequestTypesSetList",
+          "target": "RequestTypesSetList"
+        },
+        {
+          "pattern": "RequestTypesSet({key}):?query:",
+          "name": "RequestTypesSetObjectPage",
+          "target": "RequestTypesSetObjectPage"
+        }
+      ],
+      "targets": {
+        "RequestTypesSetList": {
+          "type": "Component",
+          "id": "RequestTypesSetList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/RequestTypesSet",
+              "variantManagement": "Page",
+              "navigation": {
+                "RequestTypesSet": {
+                  "detail": {
+                    "route": "RequestTypesSetObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "RequestTypesSetObjectPage": {
+          "type": "Component",
+          "id": "RequestTypesSetObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/RequestTypesSet"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.fe": {
+    "app": {
+      "enableLazyLoading": true
+    }
+  }
+}

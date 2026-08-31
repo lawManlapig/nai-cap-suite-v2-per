@@ -1,0 +1,247 @@
+{
+  "_version": "1.84.0",
+  "sap.app": {
+    "id": "nai.approvalmatrix.app.approvalmatrix",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.24.0",
+      "toolsId": "d61d17ba-1fc9-4f7a-82a6-72d9842bc5bd"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/cap-suite/approvers/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.01"
+        }
+      },
+      "globalJson": {
+        "uri": "model/model.json",
+        "type": "JSON"
+      },
+      "vhService": {
+        "uri": "/cap-suite/vh/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.01"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "capSuiteSemanticObject-manage": {
+          "semanticObject": "capSuiteSemanticObject",
+          "action": "manageApproverMatrix",
+          "title": "{{capSuiteSemanticObject-manage.flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "dependencies": {
+      "minUI5Version": "1.148.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {},
+        "sap.f": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "nai.approvalmatrix.app.approvalmatrix.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "vh": {
+        "dataSource": "vhService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "globalJsonModel": {
+        "type": "sap.ui.model.json.JSONModel",
+        "dataSource": "globalJson"
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {
+        "flexibleColumnLayout": {
+          "defaultTwoColumnLayoutType": "TwoColumnsMidExpanded",
+          "defaultThreeColumnLayoutType": "ThreeColumnsMidExpanded"
+        },
+        "routerClass": "sap.f.routing.Router"
+      },
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "ReimbursementsMatrixList",
+          "target": ["ReimbursementsMatrixList"]
+        },
+        {
+          "pattern": "ReimbursementsMatrix({key}):?query:",
+          "name": "ReimbursementsMatrixObjectPage",
+          "target": [
+            "ReimbursementsMatrixList",
+            "ReimbursementsMatrixObjectPage"
+          ]
+        },
+        {
+          "pattern": "ReimbursementsMatrix({key})/_members({key2}):?query:",
+          "name": "IAMUsersObjectPage",
+          "target": [
+            "ReimbursementsMatrixList",
+            "ReimbursementsMatrixObjectPage",
+            "IAMUsersObjectPage"
+          ]
+        }
+      ],
+      "targets": {
+        "ReimbursementsMatrixList": {
+          "type": "Component",
+          "id": "ReimbursementsMatrixList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/ReimbursementsMatrix",
+              "variantManagement": "Page",
+              "navigation": {
+                "ReimbursementsMatrix": {
+                  "detail": {
+                    "route": "ReimbursementsMatrixObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable"
+                  }
+                }
+              },
+              "initialLoad": "Enabled"
+            }
+          },
+          "controlAggregation": "beginColumnPages",
+          "contextPattern": ""
+        },
+        "ReimbursementsMatrixObjectPage": {
+          "type": "Component",
+          "id": "ReimbursementsMatrixObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/ReimbursementsMatrix",
+              "navigation": {
+                "_members": {
+                  "detail": {
+                    "route": "IAMUsersObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "_members/@com.sap.vocabularies.UI.v1.LineItem#SCIMUsers": {
+                  "actions": {
+                    "idAssignUserBtn": {
+                      "press": "nai.approvalmatrix.app.approvalmatrix.ext.controller.ActionControllerExt.onOpenAssignUserDialog",
+                      "visible": true,
+                      "enabled": "{=${ui>/isEditable}}",
+                      "requiresSelection": false,
+                      "text": "{i18n>assignUser}"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "controlAggregation": "midColumnPages",
+          "contextPattern": "/ReimbursementsMatrix({key})"
+        },
+        "IAMUsersObjectPage": {
+          "type": "Component",
+          "id": "IAMUsersObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/ReimbursementsMatrix/_members"
+            }
+          },
+          "controlAggregation": "endColumnPages",
+          "contextPattern": "/ReimbursementsMatrix({key})/_members({key2})"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "sap.fe.templates.RootContainer.view.Fcl",
+      "type": "XML",
+      "async": true,
+      "id": "appRootView"
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  },
+  "sap.fe": {
+    "app": {
+      "enableLazyLoading": true
+    }
+  }
+}

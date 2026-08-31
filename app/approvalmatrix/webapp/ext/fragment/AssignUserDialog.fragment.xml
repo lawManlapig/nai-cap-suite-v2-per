@@ -1,0 +1,49 @@
+<core:FragmentDefinition 
+    xmlns="sap.m" 
+    xmlns:core="sap.ui.core" 
+    xmlns:smartfield="sap.ui.comp.smartfield"
+    xmlns:f="sap.ui.layout.form">
+  
+    <Dialog
+        id="AssignUserDialog"
+        title="{i18n>assignUser}"
+        class="sapUiContentPadding"
+        contentWidth="500px"
+        contentHeight="auto">
+        <content>
+            <MessageStrip type="Information" showIcon="true" text="Please note that users are bound to Cloud Identity System. Please ask your administrator to create a new user if needed."/>
+                
+            <VBox class="sapMediumSmallMargin">
+                 <Label 
+                    id="lblUser"
+                    text="Select BTP User" 
+                    required="true" 
+                    class="sapUiSmallMarginTop"
+                    labelFor="assignUserField" />
+                 <Input
+                    id="assignUserField"
+                    change="handler.onValueHelpInputChange"  
+                    showValueHelp="true"
+                    valueHelpRequest="handler.onSCIMUsersVH"
+                    showSuggestion="true"
+                    core:require="{ handler: 'nai/approvalmatrix/app/approvalmatrix/ext/controller/ActionControllerExt'}"
+                    required="true" />                 
+            </VBox>
+        </content>
+        <beginButton>
+            <Button
+                id="btnAssign"
+                text="{i18n>assignUser}"
+                type="Emphasized"
+                core:require="{ handler: 'nai/approvalmatrix/app/approvalmatrix/ext/controller/ActionHandler'}"
+                press="handler.onAssignUser" />
+        </beginButton>
+        <endButton>
+            <Button
+                id="btnCancelAssign"
+                text="{i18n>btnCancel}"
+                core:require="{ handler: 'nai/approvalmatrix/app/approvalmatrix/ext/controller/ActionHandler'}"
+                press="handler.onCancelAssignDialog" />
+        </endButton>        
+    </Dialog>
+</core:FragmentDefinition>

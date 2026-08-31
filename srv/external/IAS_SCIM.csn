@@ -1,0 +1,561 @@
+{
+ "definitions": {
+  "Identity.Authentication.API": {
+   "kind": "service",
+   "@Capabilities.BatchSupported": false,
+   "@Capabilities.KeyAsSegmentSupported": true,
+   "@Core.Description": "Identity Authentication API",
+   "@Core.SchemaVersion": "1.0.0",
+   "@Core.LongDescription": "This API will be officially decommissioned on `2026-11-30`. Successor API is  [Identity Directory Service](https://api.sap.com/api/IdDS_SCIM/overview). \n Identity Authentication service provides you with simple and secure cloud-based access to business processes, applications, and data. It simplifies your user experience through state-of-the-art authentication mechanisms, secure single sign-on, on-premise integration, and convenient self-service options. Identity Authentication provides implementation for the System for Cross-domain Identity Management (SCIM) standard."
+  },
+  "Identity.Authentication.API.scim_Users_post": {
+   "kind": "action",
+   "params": {
+    "body": {
+     "type": "Identity.Authentication.API.anonymous.type0",
+     "@openapi.in": "body"
+    }
+   },
+   "@Common.Label": "User",
+   "@Core.Description": "Creates a user resource.",
+   "@Core.LongDescription": "The create user resource method of the Identity Authentication implementation of the SCIM REST API protocol provides information on the creation of a user.\n",
+   "@openapi.path": "/scim/Users",
+   "returns": {
+    "@openapi.contentType": "application/scim+json",
+    "items": {
+     "type": "Identity.Authentication.API_types.scimUserResponse"
+    }
+   }
+  },
+  "Identity.Authentication.API.scim_Users_": {
+   "kind": "function",
+   "params": {
+    "UserId": {
+     "@description": "The id of the user being manipulated",
+     "type": "cds.String",
+     "@openapi.in": "path"
+    }
+   },
+   "@Common.Label": "User",
+   "@Core.Description": "Retrieves a specific user.",
+   "@Core.LongDescription": "The user resource method of the Identity Authentication implementation of the SCIM REST API protocol provides information on a known user.\n",
+   "@openapi.path": "/scim/Users/{UserId}",
+   "returns": {
+    "@openapi.contentType": "application/scim+json",
+    "items": {
+     "type": "Identity.Authentication.API_types.scimUserResponse"
+    }
+   }
+  },
+  "Identity.Authentication.API.scim_Users__put": {
+   "kind": "action",
+   "params": {
+    "UserId": {
+     "@description": "The id of the user being manipulated",
+     "type": "cds.String",
+     "@openapi.in": "path"
+    },
+    "body": {
+     "type": "Identity.Authentication.API.anonymous.type1",
+     "@openapi.in": "body"
+    }
+   },
+   "@Common.Label": "User",
+   "@Core.Description": "Updates all attributes of a user.",
+   "@Core.LongDescription": "The update user method of the implementation of the SCIM REST API protocol provides information on the update of a known user. The method does not create a new user.\n",
+   "@openapi.method": "PUT",
+   "@openapi.path": "/scim/Users/{UserId}",
+   "returns": {
+    "@openapi.contentType": "application/scim+json",
+    "items": {
+     "type": "Identity.Authentication.API_types.scimUserResponse"
+    }
+   }
+  },
+  "Identity.Authentication.API.scim_Users__delete": {
+   "kind": "action",
+   "params": {
+    "UserId": {
+     "@description": "The id of the user being manipulated",
+     "type": "cds.String",
+     "@openapi.in": "path"
+    }
+   },
+   "@Common.Label": "User",
+   "@Core.Description": "Deletes a specific user.",
+   "@Core.LongDescription": "The delete user resource method of the Identity Authentication implementation of the SCIM REST API protocol allows you to delete an existing user. Delete user resource is implemented as defined by the System for Cross-domain Identity Management (SCIM) protocol.\n",
+   "@openapi.method": "DELETE",
+   "@openapi.path": "/scim/Users/{UserId}"
+  },
+  "Identity.Authentication.API.scim_Groups_post": {
+   "kind": "action",
+   "params": {
+    "body": {
+     "type": "Identity.Authentication.API.anonymous.type2",
+     "@openapi.in": "body"
+    }
+   },
+   "@Common.Label": "Group",
+   "@Core.Description": "Creates a group resource.",
+   "@Core.LongDescription": "The create group resource method of the Identity Authentication implementation of the SCIM REST API protocol provides information on the creation of a user group.\n",
+   "@openapi.path": "/scim/Groups",
+   "returns": {
+    "@openapi.contentType": "application/scim+json",
+    "items": {
+     "type": "Identity.Authentication.API_types.scimGroupResponse"
+    }
+   }
+  },
+  "Identity.Authentication.API.scim_Groups_": {
+   "kind": "function",
+   "params": {
+    "GroupId": {
+     "@description": "The id of the group being manipulated",
+     "type": "cds.String",
+     "@openapi.in": "path"
+    }
+   },
+   "@Common.Label": "Group",
+   "@Core.Description": "Retrieves a specific group.",
+   "@Core.LongDescription": "The group resource method of the Identity Authentication implementation of the SCIM REST API protocol provides information on a known group.\n",
+   "@openapi.path": "/scim/Groups/{GroupId}",
+   "returns": {
+    "@openapi.contentType": "application/scim+json",
+    "items": {
+     "type": "Identity.Authentication.API_types.scimGroupResponse"
+    }
+   }
+  },
+  "Identity.Authentication.API.scim_Groups__put": {
+   "kind": "action",
+   "params": {
+    "GroupId": {
+     "@description": "The id of the group being manipulated",
+     "type": "cds.String",
+     "@openapi.in": "path"
+    },
+    "body": {
+     "type": "Identity.Authentication.API.anonymous.type3",
+     "@openapi.in": "body"
+    }
+   },
+   "@Common.Label": "Group",
+   "@Core.Description": "Updates all attributes of a group.",
+   "@Core.LongDescription": "The update group method of the Identity Authentication implementation of the SCIM REST API protocol provides information on the update of an existing group. The method does not create a new group.\n",
+   "@openapi.method": "PUT",
+   "@openapi.path": "/scim/Groups/{GroupId}",
+   "returns": {
+    "@openapi.contentType": "application/scim+json",
+    "items": {
+     "type": "Identity.Authentication.API_types.scimGroupResponse"
+    }
+   }
+  },
+  "Identity.Authentication.API.scim_Groups__delete": {
+   "kind": "action",
+   "params": {
+    "GroupId": {
+     "@description": "The id of the group being manipulated",
+     "type": "cds.String",
+     "@openapi.in": "path"
+    }
+   },
+   "@Common.Label": "Group",
+   "@Core.Description": "Deletes a specific group.",
+   "@Core.LongDescription": "The delete group resource method of the Identity Authentication implementation of the SCIM REST API protocol allows you to delete an existing group. Delete group resource is implemented as defined by the System for Cross-domain Identity Management (SCIM) protocol.\n",
+   "@openapi.method": "DELETE",
+   "@openapi.path": "/scim/Groups/{GroupId}"
+  },
+  "Identity.Authentication.API_types.Address": {
+   "elements": {
+    "country": {
+     "type": "cds.String"
+    },
+    "locality": {
+     "type": "cds.String"
+    },
+    "postalCode": {
+     "type": "cds.String"
+    },
+    "region": {
+     "type": "cds.String"
+    },
+    "streetAddress": {
+     "type": "cds.String"
+    },
+    "type": {
+     "type": "cds.String",
+     "@assert.range": true,
+     "enum": {
+      "work": {}
+     },
+     "@mandatory": true
+    }
+   },
+   "kind": "type"
+  },
+  "Identity.Authentication.API_types.Email": {
+   "elements": {
+    "type": {
+     "type": "cds.String",
+     "@assert.range": true,
+     "enum": {
+      "work": {}
+     },
+     "@mandatory": true
+    },
+    "value": {
+     "type": "cds.String",
+     "@mandatory": true
+    }
+   },
+   "kind": "type"
+  },
+  "Identity.Authentication.API_types.EnterpriseUser": {
+   "elements": {
+    "department": {
+     "type": "cds.String"
+    }
+   },
+   "kind": "type"
+  },
+  "Identity.Authentication.API_types.Meta": {
+   "@description": "resource metadata",
+   "elements": {
+    "created": {
+     "type": "cds.Timestamp"
+    },
+    "lastModified": {
+     "type": "cds.Timestamp"
+    },
+    "location": {
+     "@description": "resource location URI",
+     "type": "cds.String"
+    },
+    "resourceType": {
+     "type": "cds.String",
+     "@assert.range": true,
+     "enum": {
+      "User": {},
+      "Group": {}
+     }
+    }
+   },
+   "kind": "type"
+  },
+  "Identity.Authentication.API_types.Name": {
+   "elements": {
+    "familyName": {
+     "type": "cds.String",
+     "@mandatory": true
+    },
+    "givenName": {
+     "type": "cds.String",
+     "@mandatory": true
+    }
+   },
+   "kind": "type"
+  },
+  "Identity.Authentication.API_types.PatchOperation": {
+   "elements": {
+    "op": {
+     "type": "cds.String",
+     "@assert.range": true,
+     "enum": {
+      "add": {},
+      "replace": {},
+      "remove": {}
+     },
+     "@mandatory": true
+    },
+    "path": {
+     "type": "cds.String"
+    },
+    "value": {
+     "@description": "corresponding 'value' of that field specified by 'path'",
+     "elements": {}
+    }
+   },
+   "kind": "type"
+  },
+  "Identity.Authentication.API_types.PhoneNumber": {
+   "elements": {
+    "type": {
+     "type": "cds.String",
+     "@assert.range": true,
+     "enum": {
+      "work": {},
+      "mobile": {},
+      "other": {}
+     },
+     "@mandatory": true
+    },
+    "value": {
+     "type": "cds.String",
+     "@mandatory": true
+    }
+   },
+   "kind": "type"
+  },
+  "Identity.Authentication.API_types.Photo": {
+   "elements": {
+    "type": {
+     "type": "cds.String",
+     "@assert.range": true,
+     "enum": {
+      "photo": {}
+     },
+     "@mandatory": true
+    },
+    "value": {
+     "type": "cds.String",
+     "@mandatory": true
+    }
+   },
+   "kind": "type"
+  },
+  "Identity.Authentication.API_types.ScimUser": {
+   "elements": {
+    "active": {
+     "@description": "user status",
+     "type": "cds.Boolean",
+     "default": {
+      "val": false
+     }
+    },
+    "addresses": {
+     "items": {
+      "type": "Identity.Authentication.API_types.Address"
+     }
+    },
+    "emails": {
+     "items": {
+      "type": "Identity.Authentication.API_types.Email"
+     },
+     "@mandatory": true
+    },
+    "externalId": {
+     "@description": "external unique resource id defined by provisioning client",
+     "type": "cds.String"
+    },
+    "id": {
+     "@description": "unique resource id defined by RingCentral",
+     "type": "cds.String"
+    },
+    "name": {
+     "type": "Identity.Authentication.API_types.Name",
+     "@mandatory": true
+    },
+    "phoneNumbers": {
+     "items": {
+      "type": "Identity.Authentication.API_types.PhoneNumber"
+     }
+    },
+    "photos": {
+     "items": {
+      "type": "Identity.Authentication.API_types.Photo"
+     }
+    },
+    "schemas": {
+     "items": {
+      "type": "Identity.Authentication.API.anonymous.type4"
+     },
+     "@mandatory": true
+    },
+    "urn_ietf_params_scim_schemas_extension_enterprise_2_0_User": {
+     "type": "Identity.Authentication.API_types.EnterpriseUser",
+     "@openapi.name": "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User"
+    },
+    "userName": {
+     "@description": "MUST be same as work type email address",
+     "type": "cds.String",
+     "@mandatory": true
+    }
+   },
+   "kind": "type"
+  },
+  "Identity.Authentication.API_types.scimUserResponse": {
+   "elements": {
+    "meta": {
+     "type": "Identity.Authentication.API_types.Meta"
+    }
+   },
+   "includes": [
+    "Identity.Authentication.API_types.ScimUser"
+   ],
+   "kind": "type"
+  },
+  "Identity.Authentication.API_types.Group": {
+   "@description": "Describes a group belonging to an organization",
+   "elements": {
+    "displayName": {
+     "@description": "The group's display name",
+     "type": "cds.String",
+     "@mandatory": true
+    },
+    "id": {
+     "@description": "The group's unique key",
+     "type": "cds.String",
+     "@mandatory": true
+    },
+    "members": {
+     "@description": "An array of members",
+     "items": {
+      "type": "Identity.Authentication.API_types.Member"
+     }
+    },
+    "meta": {
+     "@description": "Group metadata",
+     "type": "Identity.Authentication.API_types.GroupMetadata",
+     "@mandatory": true
+    }
+   },
+   "kind": "type"
+  },
+  "Identity.Authentication.API_types.GroupDefinition": {
+   "@description": "Describes the group to create",
+   "elements": {
+    "displayName": {
+     "@description": "The group's display name",
+     "type": "cds.String",
+     "@mandatory": true
+    },
+    "members": {
+     "@description": "An array of members",
+     "items": {
+      "type": "Identity.Authentication.API_types.Member"
+     }
+    }
+   },
+   "kind": "type"
+  },
+  "Identity.Authentication.API_types.GroupMetadata": {
+   "@description": "Group metadata",
+   "elements": {
+    "created": {
+     "@description": "The date and time the group was created",
+     "type": "cds.Timestamp",
+     "@mandatory": true
+    },
+    "location": {
+     "@description": "The URL where the group can be accessed",
+     "type": "cds.String",
+     "@mandatory": true
+    }
+   },
+   "kind": "type"
+  },
+  "Identity.Authentication.API_types.Member": {
+   "@description": "A member of a group. This can be a group or an user",
+   "elements": {
+    "type": {
+     "@description": "The type of member",
+     "type": "cds.String",
+     "@assert.range": true,
+     "enum": {
+      "group": {},
+      "user": {}
+     },
+     "@mandatory": true
+    },
+    "value": {
+     "@description": "Depending on the member type this is a groupKey or an userKey",
+     "type": "cds.String",
+     "@mandatory": true
+    }
+   },
+   "kind": "type"
+  },
+  "Identity.Authentication.API_types.scimGroupResponse": {
+   "@description": "Class describing a collection of groups",
+   "elements": {
+    "resources": {
+     "@description": "An array of groups",
+     "items": {
+      "type": "Identity.Authentication.API_types.Group"
+     },
+     "@mandatory": true
+    },
+    "totalResults": {
+     "@description": "The number of groups in the collection",
+     "type": "cds.Integer64",
+     "@mandatory": true
+    }
+   },
+   "kind": "type"
+  },
+  "Identity.Authentication.API_types.scimErrorResponse": {
+   "elements": {
+    "detail": {
+     "@description": "detail error message",
+     "type": "cds.String"
+    },
+    "schemas": {
+     "items": {
+      "type": "Identity.Authentication.API.anonymous.type5"
+     }
+    },
+    "status": {
+     "@description": "Error Code",
+     "type": "cds.Integer"
+    }
+   },
+   "kind": "type"
+  },
+  "Identity.Authentication.API.anonymous.type0": {
+   "@openapi.contentType": "application/scim+json",
+   "elements": {},
+   "includes": [
+    "Identity.Authentication.API_types.ScimUser"
+   ],
+   "kind": "type"
+  },
+  "Identity.Authentication.API.anonymous.type1": {
+   "@openapi.contentType": "application/scim+json",
+   "elements": {},
+   "includes": [
+    "Identity.Authentication.API_types.ScimUser"
+   ],
+   "kind": "type"
+  },
+  "Identity.Authentication.API.anonymous.type2": {
+   "@openapi.contentType": "application/scim+json",
+   "elements": {},
+   "includes": [
+    "Identity.Authentication.API_types.Group"
+   ],
+   "kind": "type"
+  },
+  "Identity.Authentication.API.anonymous.type3": {
+   "@openapi.contentType": "application/scim+json",
+   "elements": {},
+   "includes": [
+    "Identity.Authentication.API_types.Group"
+   ],
+   "kind": "type"
+  },
+  "Identity.Authentication.API.anonymous.type4": {
+   "type": "cds.String",
+   "@assert.range": true,
+   "enum": {
+    "urn_ietf_params_scim_schemas_core_2_0_User": {
+     "val": "urn:ietf:params:scim:schemas:core:2.0:User"
+    }
+   },
+   "kind": "type"
+  },
+  "Identity.Authentication.API.anonymous.type5": {
+   "type": "cds.String",
+   "@assert.range": true,
+   "enum": {
+    "urn_ietf_params_scim_api_messages_2_0_Error": {
+     "val": "urn:ietf:params:scim:api:messages:2.0:Error"
+    }
+   },
+   "kind": "type"
+  }
+ },
+ "meta": {
+  "creator": "cds-import-openapi"
+ }
+}
