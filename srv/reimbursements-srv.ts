@@ -53,6 +53,34 @@ export class ExpenseRequestsService extends cds.ApplicationService {
     this.before("CREATE", ExpenseRequests, async (req) => {
       const requestTypeCode: string = req.data.requestType_code ?? ""; // I doubt this will turn "" since request type code is mandatory
 
+      // ======================================================
+      // 60-Day Submission Limit Validation (FS Section 8)
+      // Applies to: RE (Reimbursement), RP (Replenishment - Petty Cash & WER)
+      // Exempted: CA (Cash Advance)
+      // ======================================================
+      const EXEMPT_REQUEST_TYPES = ["CA"];
+      const SUBMISSION_LIMIT_DAYS = 60;
+
+      if (!EXEMPT_REQUEST_TYPES.includes(requestTypeCode)) {
+        const today = new Date();
+        const expenseItems = req.data.expenseList ?? [];
+
+        for (const item of expenseItems) {
+          if (item.transactionDate) {
+            const txnDate = new Date(item.transactionDate);
+            const diffInMs = today.getTime() - txnDate.getTime();
+            const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24));
+
+            if (diffInDays > SUBMISSION_LIMIT_DAYS) {
+              req.error(
+                400,
+                `Submission blocked: Expense item dated ${item.transactionDate} exceeds the ${SUBMISSION_LIMIT_DAYS}-day submission limit. Only Cash Advance requests are exempted from this policy.`
+              );
+            }
+          }
+        }
+      }
+
       // Get latest Request ID
       const latestEntry = await SELECT.from(ExpenseRequests)
         .columns("max(requestID) as requestID")
