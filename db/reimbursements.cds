@@ -21,15 +21,15 @@ entity ExpenseRequests : cuid, managed {
     companyCodeText           : String                                                 @UI.Hidden;
     currency                  : Association to S4ValueHelp.Currency default 'PHP'      @title: '{i18n>curr}';
     currencyText              : String                                                 @UI.Hidden;
-    requestType               : Association to vh.ReimbursementRequestTypes default '' @title: '{i18n>rqtyp}';
+    requestType               : Association to vh.ReimbursementRequestTypes default '' @title: '{i18n>rqtyp}' @mandatory;
     requestTypeDescription    : String                                                 @UI.Hidden;
-    subRequestType            : Association to vh.ReimbursementSubRequestTypes         @title: '{i18n>srqty}';
+    subRequestType            : Association to vh.ReimbursementSubRequestTypes         @title: '{i18n>srqty}' @mandatory;
     subRequestTypeDescription : String                                                 @UI.Hidden;
     dateFiled                 : Date default $now                                      @title: '{i18n>dtfld}';
     period                    : String(2)                                              @title: '{i18n>perio}';
     year                      : String(4)                                              @title: '{i18n>year}';
     remarks                   : String                                                 @title: '{i18n>remar}';
-    reference                 : String                                                 @title: '{i18n>refer}';
+    reference                 : String                                                 @title: '{i18n>refer}' @mandatory;
     department                : cvh.DepartmentCode                                     @title: '{i18n>dept}';
     costCenter                : Association to S4ValueHelp.CostCenter                  @title: '{i18n>coce}';
     costCenterText            : String                                                 @UI.Hidden;

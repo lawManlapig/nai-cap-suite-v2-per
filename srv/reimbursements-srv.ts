@@ -16,7 +16,7 @@ export class ExpenseRequestsService extends cds.ApplicationService {
     );
 
     // Initial Values
-    this.before("CREATE", ExpenseRequests.drafts, async (req) => {
+    this.before("NEW", ExpenseRequests.drafts, async (req) => {
       req.data.period = getDatePeriodAndYear().period;
       req.data.year = getDatePeriodAndYear().year;
     });
@@ -27,16 +27,18 @@ export class ExpenseRequestsService extends cds.ApplicationService {
         ID: req.data.ID,
       });
 
+      let dateFiled = req.data.dateFiled !== undefined ? req.data.dateFiled : draftData[0].dateFiled;
+
       // Update Payload
       let payload = {
         DraftAdministrativeData_DraftUUID:
           draftData[0].DraftAdministrativeData_DraftUUID,
         ID: req.data.ID,
-        period: req.data.dateFiled != null
-          ? req.data.dateFiled.substring(5, 7)
+        period: dateFiled != null
+          ? dateFiled.substring(5, 7)
           : null,
-        year: req.data.dateFiled
-          ? req.data.dateFiled.substring(0, 4)
+        year: dateFiled != null
+          ? dateFiled.substring(0, 4)
           : null,
       };
 
