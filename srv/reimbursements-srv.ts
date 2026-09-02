@@ -53,11 +53,7 @@ export class ExpenseRequestsService extends cds.ApplicationService {
     this.before("CREATE", ExpenseRequests, async (req) => {
       const requestTypeCode: string = req.data.requestType_code ?? ""; // I doubt this will turn "" since request type code is mandatory
 
-      // ======================================================
-      // 60-Day Submission Limit Validation (FS Section 8)
-      // Applies to: RE (Reimbursement), RP (Replenishment - Petty Cash & WER)
-      // Exempted: CA (Cash Advance)
-      // ======================================================
+      // 60-Day Submission Limit (Exempted: CA)
       const EXEMPT_REQUEST_TYPES = ["CA"];
       const SUBMISSION_LIMIT_DAYS = 60;
 

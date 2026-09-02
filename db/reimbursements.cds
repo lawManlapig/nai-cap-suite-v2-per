@@ -15,9 +15,9 @@ namespace rb;
 entity ExpenseRequests : cuid, managed {
     // Header Details
     requestID                 : String(10) default '$Temporary'                        @title: '{i18n>rqid}';
-    employeeID                : Association to S4ValueHelp.BusinessPartnerBasic        @title: '{i18n>empid}' @mandatory;
+    employeeID                : Association to S4ValueHelp.BusinessPartnerBasic        @title: '{i18n>empid}';
     employeeName              : String(80)                                             @UI.Hidden;
-    companyCode               : Association to S4ValueHelp.CompanyCode                 @title: '{i18n>cocd}' @mandatory;
+    companyCode               : Association to S4ValueHelp.CompanyCode                 @title: '{i18n>cocd}';
     companyCodeText           : String                                                 @UI.Hidden;
     currency                  : Association to S4ValueHelp.Currency default 'PHP'      @title: '{i18n>curr}' @mandatory;
     currencyText              : String                                                 @UI.Hidden;
@@ -30,8 +30,8 @@ entity ExpenseRequests : cuid, managed {
     year                      : String(4)                                              @title: '{i18n>year}';
     remarks                   : String                                                 @title: '{i18n>remar}';
     reference                 : String                                                 @title: '{i18n>refer}' @mandatory;
-    department                : cvh.DepartmentCode                                     @title: '{i18n>dept}' @mandatory;
-    costCenter                : Association to S4ValueHelp.CostCenter                  @title: '{i18n>coce}' @mandatory;
+    department                : cvh.DepartmentCode                                     @title: '{i18n>dept}';
+    costCenter                : Association to S4ValueHelp.CostCenter                  @title: '{i18n>coce}';
     costCenterText            : String                                                 @UI.Hidden;
     area                      : String                                                 @title: '{i18n>area}';
     expenseList               : Composition of many ExpenseList
@@ -41,9 +41,9 @@ entity ExpenseRequests : cuid, managed {
 // Child Entity
 entity ExpenseList : cuid {
     header            : Association to ExpenseRequests;
-    transactionDate   : Date                  @title: '{i18n>tdat}' @mandatory;
+    transactionDate   : Date                  @title: '{i18n>tdat}';
     productionRelated : Boolean default false @title: '{i18n>prdrl}';
-    expenseType       : String                @title: '{i18n>extyp}' @mandatory;
+    expenseType       : String                @title: '{i18n>extyp}';
     particulars       : String                @title: '{i18n>parti}';
     establishment     : String                @title: '{i18n>estab}';
     address           : String                @title: '{i18n>addrs}';
@@ -55,7 +55,7 @@ entity ExpenseList : cuid {
     costCenter        : String                @title: '{i18n>coce}';
     internalOrder     : String                @title: '{i18n>intor}';
     withVat           : Boolean default false @title: '{i18n>wvat}';
-    grossAmount       : Decimal(19, 2)        @title: '{i18n>gramt}' @mandatory;
+    grossAmount       : Decimal(19, 2)        @title: '{i18n>gramt}';
     netAmount         : Decimal(19, 2)        @title: '{i18n>ntamt}';
     vatAmount         : Decimal(19, 2)        @title: '{i18n>vtamt}';
     vatCode           : String                @title: '{i18n>vtcod}'; // Need CDS from S4 (VAT)
